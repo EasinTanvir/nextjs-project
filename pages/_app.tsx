@@ -44,8 +44,8 @@ export default function App({
         <Toaster
           containerStyle={{
             bottom: 40,
-            left: 20,
-            right: 10,
+            left: -10,
+            right: -200,
           }}
           position="bottom-center"
           gutter={10}
