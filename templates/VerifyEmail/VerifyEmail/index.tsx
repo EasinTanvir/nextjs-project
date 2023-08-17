@@ -37,7 +37,7 @@ const VerifyEmails = () => {
           "/api/user/updateresetpassword",
           sendData
         );
-        //toast.success(data.message);
+
         toasts({
           title: "Success",
           description: data.message,
@@ -56,7 +56,6 @@ const VerifyEmails = () => {
           duration: 3000,
           isClosable: true,
         });
-        //toast.error(err.response.data.message);
       } finally {
         setLoader(false);
       }
