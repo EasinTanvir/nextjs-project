@@ -29,10 +29,10 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
       setTimeout(() => {
         emailjs
           .sendForm(
-            process.env.SERVICE_URL!,
-            process.env.TEMPLATE_URL!,
+            process.env.NEXT_PUBLIC_SERVICE_URL!,
+            process.env.NEXT_PUBLIC_TEMPLATE_URL!,
             form.current,
-            process.env.PUBLIC_URL!
+            process.env.NEXT_PUBLIC_PUBLIC_URL!
           )
           .then(
             (result) => {
