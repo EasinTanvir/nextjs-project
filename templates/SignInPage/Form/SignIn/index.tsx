@@ -4,7 +4,6 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "@/components/Image";
 import toast from "react-hot-toast";
-
 import { useToast } from "@chakra-ui/react";
 
 type SignInProps = {
@@ -38,7 +37,7 @@ const SignIn = ({ onClick }: SignInProps) => {
         duration: 3000,
         isClosable: true,
       });
-      //toast.success("login successful");
+
       router.replace("/");
     } else {
       toasts({
