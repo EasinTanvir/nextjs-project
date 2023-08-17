@@ -5,12 +5,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Image from "@/components/Image";
 import emailjs from "@emailjs/browser";
-
+import { useToast } from "@chakra-ui/react";
 type ForgotPasswordProps = {
   onClick: () => void;
 };
 
 const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
+  const toasts = useToast();
   const form: any = useRef();
   const [email, setEmail] = useState<string>("");
   const [token, setToken] = useState<string>("");
@@ -36,19 +37,39 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
           )
           .then(
             (result) => {
-              console.log(result);
               setLoader(false);
               setEmail("");
-              toast.success("An Email has been sent to your email address");
+              toasts({
+                title: "Email Status",
+                description: data.message,
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+              });
+              //toast.success("An Email has been sent to your email address");
             },
             (error) => {
-              console.log(error.text);
+              toasts({
+                title: "Email Send failed",
+                description: error.text,
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+              });
+              //console.log(error.text);
             }
           );
       }, 1500);
       //email
     } catch (err: any) {
-      toast.error(err.response.data.message);
+      toasts({
+        title: "Password Update",
+        description: err.response.data.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      //toast.error(err.response.data.message);
       setLoader(false);
     }
   };

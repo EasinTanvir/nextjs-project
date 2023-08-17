@@ -5,12 +5,15 @@ import { useRouter } from "next/navigation";
 import Image from "@/components/Image";
 import toast from "react-hot-toast";
 
+import { useToast } from "@chakra-ui/react";
+
 type SignInProps = {
   onClick: () => void;
 };
 
 const SignIn = ({ onClick }: SignInProps) => {
   const router = useRouter();
+  const toasts = useToast();
 
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -25,12 +28,27 @@ const SignIn = ({ onClick }: SignInProps) => {
       password: password,
     });
 
-    toast.error(result.error);
     setLoader(false);
     if (!result.error) {
       setLoader(false);
-      toast.success("login successful");
+      toasts({
+        title: "Success!",
+        description: "Login successful",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      //toast.success("login successful");
       router.replace("/");
+    } else {
+      toasts({
+        title: "Authentication Error",
+        description: result.error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      //toast.error(result.error);
     }
   };
 

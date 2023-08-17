@@ -4,6 +4,7 @@ import { Toaster, resolveValue } from "react-hot-toast";
 import { Inter, Karla } from "next/font/google";
 import { ColorModeScript, ColorModeProvider } from "@chakra-ui/color-mode";
 import { SessionProvider } from "next-auth/react";
+import { ChakraProvider } from "@chakra-ui/react";
 const inter = Inter({
   weight: ["500", "600", "700"],
   subsets: ["latin"],
@@ -39,7 +40,9 @@ export default function App({
           storageKey="chakra-ui-color-mode"
         />
         <SessionProvider session={session}>
-          <Component {...pageProps} />
+          <ChakraProvider>
+            <Component {...pageProps} />
+          </ChakraProvider>
         </SessionProvider>
         <Toaster
           containerStyle={{

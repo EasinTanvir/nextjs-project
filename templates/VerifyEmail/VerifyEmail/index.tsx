@@ -5,19 +5,26 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Image from "@/components/Image";
 import { useRouter } from "next/navigation";
+import { useToast } from "@chakra-ui/react";
 
 const VerifyEmails = () => {
+  const toasts = useToast();
   const router = useRouter();
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [token, setToken] = useState<string>("");
-  console.log(token);
   const [loader, setLoader] = useState<boolean>(false);
 
   const onSubmitHandler = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (password !== confirmPassword) {
-      toast.error("Password Didn't match");
+      toasts({
+        title: "Update Password",
+        description: "Password Didn't match",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     } else {
       const sendData = {
         token,
@@ -30,12 +37,26 @@ const VerifyEmails = () => {
           "/api/user/updateresetpassword",
           sendData
         );
-        toast.success(data.message);
+        //toast.success(data.message);
+        toasts({
+          title: "Success",
+          description: data.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
         setPassword("");
         setConfirmPassword("");
         router.push("/sign-in");
       } catch (err: any) {
-        toast.error(err.response.data.message);
+        toasts({
+          title: "Failed",
+          description: err.response.data.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+        //toast.error(err.response.data.message);
       } finally {
         setLoader(false);
       }

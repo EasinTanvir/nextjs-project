@@ -33,7 +33,7 @@ export default async function handler(req: any, res: any) {
     if (password.trim().length < 6) {
       return res
         .status(500)
-        .json({ message: "Password need at least six character" });
+        .json({ message: "password must have at least six characters" });
     }
 
     try {
@@ -48,6 +48,8 @@ export default async function handler(req: any, res: any) {
     } catch (err) {
       return res.status(500).json({ message: "Create user failed" });
     }
-    res.status(200).json({ user: "User Create Successful Please LogIn" });
+    return res
+      .status(200)
+      .json({ user: "Registration Successful. Please Login" });
   }
 }

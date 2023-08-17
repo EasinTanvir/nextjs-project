@@ -10,15 +10,16 @@ export default async function handler(req: any, res: any) {
   try {
     user = await USER.findOne({ email });
   } catch (err) {
-    res.status(200).json({ message: "Find User Failed" });
+    return res.status(500).json({ message: "Find User Failed" });
   }
+
   if (!user) {
-    res.status(200).json({ message: "Invalid Email Address" });
+    return res.status(500).json({ message: "Invalid Email Address" });
   }
 
   const token = await sendEmail({ email });
 
-  res.status(200).json({
+  return res.status(200).json({
     token,
     message: "Password reset email has been sent to your email address",
   });

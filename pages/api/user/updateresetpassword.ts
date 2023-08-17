@@ -13,17 +13,17 @@ export default async function handler(req: any, res: any) {
       verifyTokenExpire: { $gt: Date.now() },
     });
   } catch (err) {
-    res.status(200).json({ message: "Find User Failed" });
+    return res.status(500).json({ message: "Find User Failed" });
   }
 
   if (!user) {
-    res.status(200).json({ message: "Sorry No User Found" });
+    return res.status(500).json({ message: "Sorry No User Found" });
   }
 
   if (updatePassword.trim().length < 6) {
     return res
       .status(500)
-      .json({ message: "Password need at least six character" });
+      .json({ message: "password must have at least six characters" });
   }
 
   try {
@@ -43,7 +43,7 @@ export default async function handler(req: any, res: any) {
     return res.status(500).json({ message: "update user failed" });
   }
 
-  res.status(200).json({
+  return res.status(200).json({
     message: "Password update successfull",
   });
 }

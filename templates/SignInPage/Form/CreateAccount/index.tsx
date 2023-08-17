@@ -4,6 +4,7 @@ import Field from "@/components/Field";
 import axios from "axios";
 import Image from "@/components/Image";
 import toast from "react-hot-toast";
+import { useToast } from "@chakra-ui/react";
 
 type CreateAccountProps = {
   userName: string;
@@ -12,6 +13,7 @@ type CreateAccountProps = {
 };
 
 const CreateAccount = () => {
+  const toasts = useToast();
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -27,12 +29,26 @@ const CreateAccount = () => {
     try {
       setLoader(true);
       const { data } = await axios.post("/api/auth/signup", sendData);
-      toast.success(data.user);
+      toasts({
+        title: "Success!",
+        description: data.user,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      //toast.success(data.user);
       setUserName("");
       setEmail("");
       setPassword("");
     } catch (err: any) {
-      toast.error(err.response.data.message);
+      //toast.error(err.response.data.message);
+      toasts({
+        title: "Authentication Error",
+        description: err.response.data.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     } finally {
       setLoader(false);
     }
