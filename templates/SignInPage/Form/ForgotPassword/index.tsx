@@ -76,7 +76,7 @@ const ForgotPassword = ({ onClick }: ForgotPasswordProps) => {
         <input type="hidden" name="user_email" value={email} />
         <input
           type="hidden"
-          value={`${process.env.SERVER_URL}/verifyemail?token=${token}`}
+          value={`${process.env.NEXT_PUBLIC_SERVER_URL}/verifyemail?token=${token}`}
           name="message"
         />
         <button className="btn-blue btn-large w-full mb-6" type="submit">
