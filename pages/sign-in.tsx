@@ -6,24 +6,4 @@ const SignIn: NextPage = () => {
   return <SignInPage />;
 };
 
-//@ts-ignore
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const session = await getSession({ req: context.req });
-
-  if (session) {
-    return {
-      redirect: {
-        destination: "/",
-        permananet: false,
-      },
-    };
-  }
-
-  return {
-    props: { session },
-  };
-};
-
 export default SignIn;
