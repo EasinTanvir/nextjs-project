@@ -13,12 +13,16 @@ export default async function handler(req: any, res: any) {
     }
 
     try {
-      existingUser = await USER.findOne({ userName });
+      existingUser = await USER.findOne({
+        userName: { $regex: new RegExp(userName, "i") },
+      });
     } catch (err) {
       return res.status(500).json({ message: "find Email failed" });
     }
     try {
-      existingEmail = await USER.findOne({ email });
+      existingEmail = await USER.findOne({
+        email: { $regex: new RegExp(email, "i") },
+      });
     } catch (err) {
       return res.status(500).json({ message: "find Email failed" });
     }
